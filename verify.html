@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hanzi Writer JSON Batch Verifier</title>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
+<style>
+  body {
+    font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif;
+    margin: 0;
+    padding: 24px;
+    background: #f5f7fa;
+    color: #222;
+  }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    margin-bottom: 20px;
+  }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px 8px 0 0;
+  }
+  button.secondary { background: #64748b; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .target {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+  .title {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .meta {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    white-space: pre-wrap;
+  }
+  .ok { color: #15803d; }
+  .bad { color: #b91c1c; }
+  .actions {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .actions button {
+    margin: 0;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  #status {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+  }
+  .info { background: #e0f2fe; color: #075985; }
+  .error { background: #fee2e2; color: #7f1d1d; }
+  .success { background: #dcfce7; color: #14532d; }
+</style>
+</head>
+<body>
+
+<h1>Hanzi Writer JSON Batch Verifier</h1>
+
+<div class="card">
+  <label for="chars">Characters</label>
+  <textarea id="chars" placeholder="花 蓮 草 茶&#10;or: 花蓮草茶">乃
+仍
+來
+侮
+侵
+俚
+俠
+倔
+假
+僮
+兜
+入
+內
+全
+冊
+再
+冑
+凋
+凳
+凸
+凹
+出
+別
+刪
+動
+勵
+卵
+厲
+及
+叟
+告
+呣
+周
+咄
+哩
+啁
+啟
+善
+喱
+嗇
+嗨
+嘿
+噓
+噩
+囈
+囌
+坶
+埋
+報
+墅
+墨
+夃
+夢
+夾
+奶
+姆
+姍
+娌
+婦
+嫂
+嫣
+嬴
+孕
+孵
+學
+密
+尋
+屈
+峽
+崛
+嶼
+帚
+帶
+幢
+廢
+彌
+彗
+必
+忖
+忙
+快
+忱
+怔
+怕
+怖
+怡
+急
+性
+怩
+怪
+怯
+怵
+恃
+恆
+恍
+恢
+恤
+恨
+恪
+恫
+恬
+恰
+悄
+悅
+悌
+悍
+悔
+悖
+悚
+悟
+悴
+悵
+悸
+悻
+悼
+悽
+情
+惆
+惋
+惕
+惘
+惚
+惜
+惟
+惦
+惰
+惱
+惴
+惶
+惺
+惻
+愀
+愉
+愎
+愕
+愜
+感
+愠
+愣
+愴
+愷
+愾
+慄
+慎
+慘
+慚
+慟
+慢
+慣
+慧
+慨
+慳
+慵
+慷
+憎
+憐
+憔
+憚
+憤
+憧
+憫
+憬
+憲
+憶
+憾
+懂
+懈
+懊
+懦
+懨
+懶
+懷
+懺
+懼
+懾
+戀
+扔
+拇
+拙
+挾
+掃
+掘
+揆
+搜
+搬
+撞
+撥
+擎
+擠
+攀
+攪
+攬
+敏
+敬
+晦
+暇
+服
+枘
+柵
+栓
+梅
+梏
+椆
+楹
+榮
+樊
+橙
+檻
+歸
+母
+每
+毒
+毓
+氖
+氯
+汆
+汛
+泌
+浩
+海
+滯
+潑
+潛
+潼
+澄
+濛
+瀚
+瀛
+瀰
+焉
+燈
+燻
+爾
+牆
+牠
+犢
+狸
+狹
+珊
+理
+瑕
+瑟
+瑤
+璽
+疊
+痊
+瘦
+瘧
+癸
+登
+發
+皓
+盈
+盤
+盥
+睞
+睽
+瞪
+瞳
+矇
+碉
+磐
+磴
+礬
+祟
+禍
+秀
+稠
+種
+穩
+窖
+窟
+窩
+童
+筌
+筷
+糧
+納
+綢
+繁
+繕
+繩
+纏
+羸
+翰
+肭
+腫
+膳
+與
+興
+舉
+舟
+舡
+舢
+舣
+舨
+航
+舫
+般
+舭
+舯
+舲
+舳
+舴
+舵
+舶
+舷
+舸
+船
+舾
+艘
+艙
+艟
+艦
+艻
+艽
+艾
+艿
+芊
+芋
+芍
+芎
+芒
+芙
+芝
+芥
+芬
+芭
+芮
+芯
+花
+芳
+芹
+芽
+苑
+苓
+苔
+苗
+苛
+苞
+苟
+若
+苦
+苧
+苯
+英
+苷
+茁
+茂
+范
+茄
+茅
+茉
+茗
+茚
+茛
+茜
+茨
+茫
+茯
+茱
+茲
+茴
+茵
+茶
+茸
+茹
+茼
+荀
+荃
+荇
+草
+荊
+荏
+荐
+荑
+荒
+荔
+荷
+荸
+荻
+荼
+荽
+莆
+莉
+莊
+莎
+莒
+莓
+莖
+莘
+莛
+莞
+莠
+莢
+莧
+莨
+莩
+莪
+莫
+莿
+菀
+菁
+菅
+菇
+菊
+菌
+菔
+菖
+菘
+菜
+菝
+菟
+菠
+菡
+華
+菰
+菱
+菲
+菸
+菹
+菽
+萁
+萃
+萄
+萆
+萊
+萋
+萌
+萍
+萎
+萏
+萘
+萜
+萬
+萱
+萸
+萼
+落
+葆
+葉
+著
+葙
+葚
+葛
+葜
+葡
+董
+葦
+葩
+葫
+葬
+葭
+葳
+葵
+葶
+葷
+葸
+葺
+蒂
+蒐
+蒓
+蒔
+蒗
+蒙
+蒜
+蒞
+蒟
+蒡
+蒭
+蒲
+蒸
+蒹
+蒼
+蓂
+蓄
+蓋
+蓑
+蓬
+蓮
+蓰
+蓴
+蓼
+蓽
+蓿
+蔌
+蔑
+蔓
+蔔
+蔗
+蔚
+蔟
+蔡
+蔣
+蔥
+蔫
+蔬
+蔭
+蔻
+蔽
+蕃
+蕈
+蕉
+蕊
+蕎
+蕙
+蕞
+蕢
+蕤
+蕨
+蕩
+蕪
+蕭
+蕺
+蕻
+蕾
+薄
+薅
+薇
+薈
+薊
+薌
+薏
+薑
+薔
+薛
+薜
+薤
+薦
+薨
+薩
+薪
+薯
+薰
+薺
+藉
+藍
+藏
+藐
+藕
+藜
+藝
+藤
+藥
+藩
+藪
+藹
+藺
+藻
+蘄
+蘆
+蘇
+蘊
+蘋
+蘑
+蘘
+蘚
+蘢
+蘧
+蘭
+蘸
+蘺
+蘼
+蘿
+虐
+虛
+蚋
+蜜
+蜩
+蝦
+蝨
+螞
+螟
+螺
+螻
+蟹
+蠅
+蠣
+蠶
+蠹
+衙
+衝
+衲
+覺
+角
+解
+觴
+觸
+訊
+訥
+詮
+誘
+誨
+調
+諾
+謊
+謠
+謨
+證
+警
+譽
+貓
+贏
+赧
+蹬
+輯
+輿
+轉
+轎
+轡
+迅
+造
+週
+酷
+釁
+里
+重
+野
+量
+釐
+鈉
+鉧
+銓
+銜
+銬
+錨
+鍋
+鐘
+隱
+隽
+雨
+雪
+雲
+零
+電
+需
+霉
+霞
+露
+霾
+靈
+靠
+頰
+颼
+餿
+駢
+驀
+驚
+骯
+髒
+體
+鬨
+鯉
+鰓
+鱈
+鱔
+鱘
+鱷
+鵠
+鵰
+黑
+黔
+默
+黛
+黜
+黝
+點
+黠
+黨
+黯
+黷
+龜
+</textarea>
+
+  <div>
+    <button id="load">Load JSON files</button>
+    <button id="loadManifest" class="secondary">Load characters.txt</button>
+    <button id="animateAll" class="secondary" disabled>Animate all</button>
+  </div>
+
+  <div id="status" class="info">
+    Enter characters separated by spaces, commas, or new lines.
+  </div>
+</div>
+
+<div id="grid"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const items = new Map();
+
+function setStatus(text, type = "info") {
+  const el = $("status");
+  el.textContent = text;
+  el.className = type;
+}
+
+function parseCharacters(text) {
+  return [...new Set(
+    text
+      .split(/[\s,，、\n]+/)
+      .map(s => s.trim())
+      .filter(Boolean)
+  )];
+}
+
+function createCard(char) {
+  const card = document.createElement("div");
+  card.className = "item";
+  card.innerHTML = `
+    <div class="title">${char}</div>
+    <div class="target" id="target-${char}"></div>
+    <div class="meta" id="meta-${char}">Loading ${char}.json…</div>
+    <div class="actions">
+      <button data-char="${char}" data-action="animate">Animate</button>
+      <button data-char="${char}" data-action="quiz">Quiz</button>
+    </div>
+  `;
+  $("grid").appendChild(card);
+  return card;
+}
+
+async function loadCharacter(char) {
+  const path = `data/${encodeURIComponent(char)}.json`;
+  const meta = $(`meta-${char}`);
+  let data;
+
+  try {
+    const res = await fetch(path);
+
+    if (!res.ok) {
+      meta.innerHTML = `<span class="bad">Failed: ${path} (HTTP ${res.status})</span>`;
+      return null;
+    }
+
+    data = await res.json();
+  } catch (e) {
+    meta.innerHTML = `<span class="bad">Fetch failed: ${path}</span>`;
+    return null;
+  }
+
+  const strokes = Array.isArray(data.strokes) ? data.strokes : [];
+  const medians = Array.isArray(data.medians) ? data.medians : [];
+  const countOk = strokes.length > 0 && strokes.length === medians.length;
+
+  if (!countOk) {
+    meta.innerHTML =
+      `<span class="bad">Invalid: ${strokes.length} strokes / ${medians.length} medians</span>`;
+    return null;
+  }
+
+  const writer = HanziWriter.create(`target-${char}`, char, {
+    width: 180,
+    height: 180,
+    padding: 10,
+    strokeColor: "#333",
+    radicalColor: "#168f48",
+    showOutline: true,
+    charDataLoader: () => data
+  });
+
+  meta.innerHTML =
+    `<span class="ok">OK</span> — ${strokes.length} strokes` +
+    (Array.isArray(data.radStrokes)
+      ? `\nradStrokes: ${JSON.stringify(data.radStrokes)}`
+      : "\nradStrokes: not provided");
+
+  items.set(char, { writer, data });
+  return writer;
+}
+
+async function loadCharacters(characters) {
+  $("grid").innerHTML = "";
+  items.clear();
+
+  if (!characters.length) {
+    setStatus("No characters entered.", "error");
+    return;
+  }
+
+  setStatus(`Loading ${characters.length} file(s)…`, "info");
+
+  const results = await Promise.all(
+    characters.map(async char => {
+      createCard(char);
+      return loadCharacter(char);
+    })
+  );
+
+  const loaded = results.filter(Boolean).length;
+  const failed = characters.length - loaded;
+
+  $("animateAll").disabled = loaded === 0;
+
+  setStatus(
+    failed === 0
+      ? `Loaded ${loaded} character JSON file(s).`
+      : `Loaded ${loaded}; failed ${failed}. Check that each <character>.json exists beside this HTML file.`,
+    failed === 0 ? "success" : "error"
+  );
+}
+
+function loadFromInput() {
+  const chars = parseCharacters($("chars").value);
+  loadCharacters(chars);
+}
+
+async function loadManifest() {
+  try {
+    const res = await fetch("characters.txt");
+
+    if (!res.ok) {
+      setStatus(`Could not load characters.txt (HTTP ${res.status}).`, "error");
+      return;
+    }
+
+    const text = await res.text();
+    $("chars").value = text.trim();
+    loadFromInput();
+  } catch (e) {
+    setStatus("Could not load characters.txt. Create it beside this HTML file.", "error");
+  }
+}
+
+function animateAll() {
+  for (const [, item] of items) {
+    item.writer.animateCharacter();
+  }
+  setStatus("Animating all loaded characters.", "info");
+}
+
+$("load").addEventListener("click", loadFromInput);
+$("loadManifest").addEventListener("click", loadManifest);
+$("animateAll").addEventListener("click", animateAll);
+
+$("grid").addEventListener("click", event => {
+  const button = event.target.closest("button[data-char]");
+  if (!button) return;
+
+  const char = button.dataset.char;
+  const action = button.dataset.action;
+  const item = items.get(char);
+
+  if (!item) return;
+
+  if (action === "animate") {
+    item.writer.animateCharacter();
+  } else if (action === "quiz") {
+    item.writer.quiz();
+  }
+});
+</script>
+
+</body>
+</html>

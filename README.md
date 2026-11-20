@@ -30,6 +30,8 @@ This is the character data used by Hanzi Writer for Hong Kong Stroke order. **NO
 | 22. 「彐」部件（中橫向右穿出頭）| 香港標準： 「彐」部件中間一橫向右穿過右豎出頭（筆順：橫折、橫（向右穿出頭）、橫），保留傳統楷書寫法。<br>(註：台灣及內地標準將「急、隱、穩、雪、尋、婦、歸」等字的中橫改為收在橫折內不出頭) | 急、隱、穩、雪 (以及所有含「彐」部件之字，如尋、婦、歸、掃、侵、浸)|
 | 23. 「比」及「能」部件（該筆作「橫」非「撇」）|香港標準： <br>• 「比」（4 畫）： 筆順為橫、豎挑、橫、豎彎鉤，右半邊第 1 筆（第 3 畫）明確作平直的「橫」（與左邊對稱）。<br>• 「能 / 熊 / 罷 / 態」： 右邊上下兩個「匕」部件，其第 1 筆亦均作平直的「橫」（橫、豎彎鉤）。<br>(註：其餘單「匕」或「北」部件之字，如「匕、化、花、貨、死、北、背」，該筆均作斜「撇」)|「比」系列： 比、庇、批、屁、毗、琵、砒、陛、皆、階、諧、楷、昆、混、棍<br>「能」系列： 能、熊、罷、態|
 | 24. 「善 / 膳 / 繕」中間結構（點、撇、長橫分明不連筆）|香港標準（「善」12 畫）： 上方先寫「羊」字頭（點、撇、橫、橫、橫、豎，中豎止於第三橫），中間寫「點、撇、長橫」（兩點分明、不與上下連筆），下方寫「口」（豎、橫折、橫）。<br>(註：同類「善」部件字均循此結構與筆順)|善、膳、繕、鱔|
+| 25.「肉」部及「肉字旁（⺼）」與「月」部嚴格區分 |香港標準（嚴格按字源區分）：<br>• 「肉」（6 畫）： 豎、橫折鉤、撇、點、撇、點。<br>• 「肉字旁」（⺼，4 畫）： 筆順為 豎（或撇）、橫折鉤、點、挑。裡面明確寫作「一點一挑」，並非兩橫。<br>• 「月」部（4 畫）： 筆順為 撇、橫折鉤、橫、橫（真正「月」字旁裡面才寫兩橫）。<br>(註：內地規範字將兩者統一合併為兩橫「月」，香港《常用字字形表》堅持嚴格區分)|肉字旁（點、挑）： 肉、肌、肚、肥、臉、腿、腳、勝、胡、腦、膠、胃、背、肯、育、肩<br>月字旁（兩橫）： 月、明、朗、期、望、朝、服、朋|
+
 
 ## License
 This data comes from animCJK and the Make Me A Hanzi project, which extracted the data from fonts by Arphic Technology, a Taiwanese font forge that released their work under a permissive license in 1999. You can redistribute and/or modify this data under the terms of the Arphic Public License as published by Arphic Technology Co., Ltd. A copy of this license can be found in ARPHICPL.TXT.
